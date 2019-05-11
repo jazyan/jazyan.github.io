@@ -1,0 +1,27 @@
+html, body {
+    height: 100%;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+    display: flex;
+    align-items: center;
+}
+
+.container {
+    width: 70%;
+    margin: 0 auto;
+    padding: 50px;
+    background-color: #ffffff;
+    opacity: 0.7;
+}
+
+.background {
+  position: absolute;
+  background-color: black;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;                  /* moves to the background */
+}
