@@ -8,6 +8,10 @@ body {
     align-items: center;
 }
 
+a:any-link {
+    color: black;
+}
+
 .container {
     width: 70%;
     margin: 0 auto;
