@@ -12,6 +12,11 @@ a:any-link {
     color: black;
 }
 
+#canvas {
+    width: 70%;
+    margin: auto;
+}
+
 .container {
     width: 70%;
     margin: 0 auto;
