@@ -63,7 +63,6 @@ for (var i = 0; i < lines.length; i++) {
 // taken from https://bl.ocks.org/mbostock/6738109
 var superscript = "⁰¹²³⁴⁵⁶⁷⁸⁹",
     formatPower = function(d) { 
-        console.log(d);
         return (d + "").split("").map(
             function(c) { return superscript[c]; }).join(""
         ); 
