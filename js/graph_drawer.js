@@ -26,10 +26,7 @@ window.onload = function () {
     // as well as creates edge
     canvas.onclick = function (e) {
         var index = checkBoundary(e, radius);
-        console.log("selection attempt");
         if (index >= 0) {
-            console.log("selection successful");
-            console.log(svg.children);
             var node = svg.children[index];
             if (node.nodeName === "line") {
                 clickEdge(node);
