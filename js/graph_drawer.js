@@ -19,12 +19,17 @@ window.onload = function () {
         if (index === -1) {
             drawNode(e);
         }
+        console.log("created node");
+        console.log(svg.children);
     }
     // single click selects / deselects node
     // as well as creates edge
     canvas.onclick = function (e) {
         var index = checkBoundary(e, radius);
+        console.log("selection attempt");
         if (index >= 0) {
+            console.log("selection successful");
+            console.log(svg.children);
             var node = svg.children[index];
             if (node.nodeName === "line") {
                 clickEdge(node);
