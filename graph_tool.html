@@ -1,0 +1,29 @@
+<!DOCTYPE html5>
+<html>
+    <head>
+        <div style="position: relative">
+            <canvas id="canvas" width=825 height=825></canvas>
+            <svg id="svg" width=825 height=825 
+                style="position: absolute; 
+                       left: 0px;
+                       top: 0px;
+                       z-index: -1;">
+            </svg>
+        </div>
+        <ul>
+            <li><b>double-click</b> to create a node</li>
+            <li><b>click</b> to select / deselect a node</li>
+            <li><b>click</b> a node, then click another to create an edge between them</li>
+            <li><b>click</b> to select / deselect an edge</li>
+            <li><b>shift</b> to color a selected edge blue or red</li>
+            <li><b>backspace </b> to delete selected node or edge</li>
+        </ul>
+        <button>download as PNG</button>
+    </head>
+    <script src="js/graph_tool/globals.js"></script>
+    <script src="js/graph_tool/utils.js"></script>
+    <script src="js/graph_tool/draw.js"></script>
+    <script src="js/graph_tool/select.js"></script>
+    <script src="js/graph_tool/delete.js"></script>
+    <script src="js/graph_tool/graph_drawer.js"></script>
+</html>
