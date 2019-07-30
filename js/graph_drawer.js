@@ -19,8 +19,6 @@ window.onload = function () {
         if (index === -1) {
             drawNode(e);
         }
-        console.log("created node");
-        console.log(svg.children);
     }
     // single click selects / deselects node
     // as well as creates edge
