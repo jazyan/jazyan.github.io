@@ -2,28 +2,53 @@
 <html>
     <head>
         <div style="position: relative">
-            <canvas id="canvas" width=825 height=825></canvas>
-            <svg id="svg" width=825 height=825 
+            <canvas id="canvas" width=810 height=810></canvas>
+            <svg id="svg" width=810 height=810 
                 style="position: absolute; 
                        left: 0px;
                        top: 0px;
                        z-index: -1;">
+            <defs>
+                <marker id="triangle-blue" viewBox="0 0 10 10"
+                        refX="8" refY="5" 
+                        markerUnits="strokeWidth"
+                        markerWidth="3" markerHeight="3"
+                        orient="auto">
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="blue"/>
+                </marker>
+                <marker id="triangle-red" viewBox="0 0 10 10"
+                        refX="8" refY="5" 
+                        markerUnits="strokeWidth"
+                        markerWidth="3" markerHeight="3"
+                        orient="auto">
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="red"/>
+                </marker>
+            </defs>
             </svg>
         </div>
-        <ul>
-            <li><b>double-click</b> to create a node</li>
-            <li><b>click</b> to select / deselect a node</li>
-            <li><b>click</b> a node, then click another to create an edge between them</li>
-            <li><b>click</b> to select / deselect an edge</li>
-            <li><b>shift</b> to color a selected edge blue or red</li>
-            <li><b>backspace </b> to delete selected node or edge</li>
-        </ul>
-        <button>download as PNG</button>
+        <!--https://stackoverflow.com/a/7018415-->
+        <div style="-webkit-user-select: none;        
+                    -moz-user-select: none;
+                    -ms-user-select: none;">
+            <p style="margin: 0; padding: 0;">
+                <b>current toggled color</b>
+            </p>
+            <ul>
+                <li><b>double-click</b> to create a node</li>
+                <li><b>click</b> to select or deselect a node or edge</li>
+                <li><b>click</b> a node, then click another to create an edge between them</li>
+                <li><b>shift</b> to color a selected edge blue or red</li>
+                <li><b>backspace </b> to delete selected node or edge</li>
+                <li><b>tab</b> to toggle color of subsequently created edges</li>
+                <li><b>ctrl</b> to toggle whether the edges are directed or undirected</li>
+            </ul>
+            <button>download as PNG</button>
+        </div>
     </head>
-    <script src="js/globals.js"></script>
-    <script src="js/utils.js"></script>
-    <script src="js/draw.js"></script>
-    <script src="js/select.js"></script>
-    <script src="js/delete.js"></script>
-    <script src="js/graph_drawer.js"></script>
+    <script src="js/graph/delete.js"></script>
+    <script src="js/graph/draw.js"></script>
+    <script src="js/graph/globals.js"></script>
+    <script src="js/graph/graph_drawer.js"></script>
+    <script src="js/graph/select.js"></script>
+    <script src="js/graph/utils.js"></script>
 </html>

@@ -7,13 +7,21 @@ function deselectEdge(edge) {
 }
 
 function selectNode(node) {
-    node.setAttribute("stroke", "grey");
-    node.setAttribute("fill", "grey");
+    node.setAttribute("r", radius + 3);
 }
 
 function deselectNode(node) {
-    node.setAttribute("stroke", "black");
-    node.setAttribute("fill", "black");
+    node.setAttribute("r", radius);
+}
+
+function deselectObject(object) {
+    if (object === null) {
+        return;
+    } else if (object.nodeName === "line") {
+        deselectEdge(object);
+    } else if (object.nodeName === "circle") {
+        deselectNode(object);
+    }
 }
 
 function clickEdge(edge) {

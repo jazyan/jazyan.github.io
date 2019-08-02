@@ -31,9 +31,21 @@ function drawEdge(x1, y1, x2, y2) {
     line.setAttribute("x2", bp2[0]);
     line.setAttribute("y2", bp2[1]);
     line.setAttribute("stroke-width", 6);
-    line.setAttribute("stroke", "blue");
+    line.setAttribute("stroke", currToggleColor);
+    if (directed) {
+        line.setAttribute("marker-end", "url(#triangle-" + currToggleColor + ")")
+    }
     svg.appendChild(line);
     return line;
+}
+
+function toggleColor() {
+    if (currToggleColor === "blue") {
+        currToggleColor = "red";
+    } else {
+        currToggleColor = "blue";
+    }
+    toggleColorText.style.color = currToggleColor;
 }
 
 function colorSelectedObject() {
@@ -47,5 +59,25 @@ function colorSelectedObject() {
             currColor = "blue";
         }
         selectedObject.setAttribute("stroke", currColor);
+        if (directed) {
+            selectedObject.setAttribute("marker-end", "url(#triangle-" + currColor + ")");
+        }
+    }
+}
+
+function toggleDirected() {
+    directed = directed ? false : true;
+    console.log(directed);
+    for (var i = 0; i < svg.children.length; ++i) {
+        var currNode = svg.children[i];
+        if (currNode.nodeName === "line") {
+            if (!directed) {
+                currNode.setAttribute("marker-end", null);
+            } else {
+                console.log("bello");
+                var currColor = currNode.getAttribute("stroke");
+                currNode.setAttribute("marker-end", "url(#triangle-" + currColor + ")");
+            }
+        }
     }
 }
