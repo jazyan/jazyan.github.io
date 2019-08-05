@@ -4,48 +4,38 @@ function deleteSelectedObject() {
         return;
     }
     if (selectedObject.nodeName === "circle") {
-        deleteNodeEdges(selectedObject);
+        deleteNodesEdges(selectedObject);
     } else {
-        deleteEdgeFromMap(selectedObject);
+        deleteEdgeFromList(selectedObject);
     }
     svg.removeChild(selectedObject);
     selectedObject = null;
 }
 
-function deleteEdgeFromMap(toDeleteEdge) {
-    for (var [node, edgeList] of nodeEdgeMap) {
-        for (var i = 0; i < edgeList.length; ++i) {
-            if (toDeleteEdge === edgeList[i]) {
-                edgeList.splice(i, 1);
-                break;  // there should only be one occurrence of edge
-            }
+function deleteEdgeFromList(toDeleteEdge) {
+    for (var i = 0; i < edgeList.length; ++i) {
+        if (edgeList[i][2] === toDeleteEdge) {
+            edgeList.splice(i, 1);
+            break;  // there should be only one occurrence of edge
         }
     }
 }
 
 // given a node that is to be deleted
 // delete its edges, and all references to its edges
-// that includes references in the edge lists of other nodes
-function deleteNodeEdges(toDeleteNode) {
-    var edges = nodeEdgeMap.get(toDeleteNode);
-    for (var [node, edgeList] of nodeEdgeMap) {
-        if (node === toDeleteNode) {
-            continue;
-        }
-        var toDelete = []
-        for (var i = 0; i < edges.length; ++i) {
-            for (var j = 0; j < edgeList.length; ++j) {
-                if (edges[i] === edgeList[j]) {
-                    toDelete.push(j);
-                }
-            }
-        }
-        for (var i = toDelete.length - 1; i >= 0; --i) {
-            edgeList.splice(toDelete[i], 1);
+function deleteNodesEdges(toDeleteNode) {
+    var indicesToDelete = [];
+    var edgesToDelete = [];
+    for (var i = 0; i < edgeList.length; i++) {
+        if (edgeList[i][0] === toDeleteNode || edgeList[i][1] === toDeleteNode) {
+            indicesToDelete.push(i);
+            edgesToDelete.push(edgeList[i][2]);
         }
     }
-    for (var i = 0; i < edges.length; ++i) {
-        svg.removeChild(edges[i]);
+    for (var i = indicesToDelete.length - 1; i >= 0; --i) {
+        edgeList.splice(indicesToDelete[i], 1);
     }
-    nodeEdgeMap.delete(toDeleteNode);
+    for (var i = 0; i < edgesToDelete.length; ++i) {
+        svg.removeChild(edgesToDelete[i]);
+    }
 }

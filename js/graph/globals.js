@@ -3,8 +3,8 @@ var svg = document.getElementById("svg");
 var radius = 12;
 // either a node or an edge
 var selectedObject = null;
-// map of nodes keys to edge list values
-var nodeEdgeMap = new Map();
+// list of edges, where each elt is [n1, n2, edge]
+var edgeList = [];
 // current color of edges
 var currToggleColor = "blue";
 var toggleColorText = document.querySelector("p");

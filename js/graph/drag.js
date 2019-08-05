@@ -1,38 +1,52 @@
-// TODO: dragging logic
-// TODO: taken from https://www.kirupa.com/html5/drag.htm, but doesn't quite work
-// TODO: NOT CALLED YET
-var initialX;
-var initialY;
-var currentX;
-var currentY;
-var draggedObject = null;
-svg.addEventListener("mousedown", dragStart, false);
-svg.addEventListener("mouseup", dragEnd, false);
-svg.addEventListener("mousemove", drag, false);
+var mousedElement = null;
 
-function dragStart(e) {
-    var index = checkBoundary(e, radius);
-    if (index > 0) {
-        draggedObject = svg.children[index];
-        initialX = draggedObject.getAttribute("cx");
-        initialY = draggedObject.getAttribute("cy");
+function startDrag(node) {
+    if (node !== null && node.nodeName === "circle") {
+        mousedElement = node;
     }
-    console.log("START DRAG");
 }
 
-function dragEnd(e) {
-    initialX = currentX;
-    initialY = currentY;
-    draggedObject = null;
+function updateEdge(x1, y1, x2, y2, edge) {
+    var bp1 = computeBoundaryPoint(x1, y1, x2, y2);
+    var bp2 = computeBoundaryPoint(x2, y2, x1, y1);
+    edge.setAttribute("x1", bp1[0]);
+    edge.setAttribute("y1", bp1[1]);
+    edge.setAttribute("x2", bp2[0]);
+    edge.setAttribute("y2", bp2[1]);
 }
 
-function drag(e) {
-    console.log("dragging");
-    if (draggedObject != null) {
-        var currentPos = getMousePos(e);
-        currentX = currentPos.x;
-        currentY = currentPos.y;
-        draggedObject.setAttribute("cx", currentX);
-        draggedObject.setAttribute("cy", currentY);
+function drag(evt) {
+    if (!mousedElement) {
+        return;
     }
+    evt.preventDefault();
+    var pos = getMousePos(canvas, evt);
+    for (var i = 0; i < edgeList.length; ++i) {
+        var node1 = edgeList[i][0];
+        var node2 = edgeList[i][1];
+        var edge = edgeList[i][2];
+        if (mousedElement === node1){
+            updateEdge(
+                parseInt(pos.x),
+                parseInt(pos.y),
+                parseInt(node2.getAttribute("cx")),
+                parseInt(node2.getAttribute("cy")),
+                edge
+            );
+        } else if (mousedElement === node2) {
+            updateEdge(
+                parseInt(node1.getAttribute("cx")),
+                parseInt(node1.getAttribute("cy")),
+                parseInt(pos.x),
+                parseInt(pos.y),
+                edge
+            );
+        }
+    }
+    mousedElement.setAttribute("cx", pos.x);
+    mousedElement.setAttribute("cy", pos.y);
+}
+
+function endDrag(evt) {
+    mousedElement = null;
 }

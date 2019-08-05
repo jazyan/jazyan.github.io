@@ -64,11 +64,8 @@ function clickNode(node) {
         x2 = parseInt(node.getAttribute("cx"));
         y2 = parseInt(node.getAttribute("cy"));
         var line = drawEdge(x1, y1, x2, y2);
-        // add edge to nodeEdgeMap        
-        var n1Edges = nodeEdgeMap.get(selectedObject);
-        n1Edges.push(line);
-        var n2Edges = nodeEdgeMap.get(node);
-        n2Edges.push(line);
+        // add edge to edgeList 
+        edgeList.push([selectedObject, node, line]);
         // deselect currently selected node
         deselectNode(selectedObject);
         selectedObject = null;

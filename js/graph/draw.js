@@ -17,7 +17,6 @@ function drawNode(event) {
     }
     var circle = createSVGCircle(pos.x, pos.y, radius, "black");
     svg.appendChild(circle);
-    nodeEdgeMap.set(circle, []);
 }
 
 // given node centers (x1, y1) of circle C1 and (x2, y2) of circle C2

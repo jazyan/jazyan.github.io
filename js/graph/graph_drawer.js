@@ -38,6 +38,26 @@ window.onload = function () {
             }
         }
     }
+
+    canvas.onmousedown = function (e) {
+        var index = checkBoundary(e, radius);
+        if (index >= 0) {
+            var node = svg.children[index];
+            startDrag(node);
+        }
+    }
+
+    canvas.onmousemove = function (e) {
+        drag(e);
+    }
+
+    canvas.onmouseup = function (e) {
+        endDrag(e);
+    }
+
+    canvas.onmouseleave = function (e) {
+        endDrag(e);
+    }
 }
 
 // SVG to PNG logic below
