@@ -1,8 +1,13 @@
 var mousedElement = null;
+var prevPos = null;
 
-function startDrag(node) {
-    if (node !== null && node.nodeName === "circle") {
-        mousedElement = node;
+function startDrag(evt) {
+    var index = checkBoundary(evt, radius);
+    if (index >= 0 && svg.children[index].nodeName === "circle") {
+        mousedElement = svg.children[index];
+    } else {
+        var pos = getMousePos(canvas, evt);
+        prevPos = [parseFloat(pos.x), parseFloat(pos.y)];
     }
 }
 
@@ -15,12 +20,53 @@ function updateEdge(x1, y1, x2, y2, edge) {
     edge.setAttribute("y2", bp2[1]);
 }
 
+// TODO: clean this up
 function drag(evt) {
-    if (!mousedElement) {
-        return;
-    }
     evt.preventDefault();
     var pos = getMousePos(canvas, evt);
+    if (!mousedElement) {
+        if (prevPos === null) {
+            return;
+        } else {
+            // update all the elements by delta
+            var deltaX = prevPos[0] - parseFloat(pos.x);
+            var deltaY = prevPos[1] - parseFloat(pos.y);
+            // update prevPos here to make dragging smooth
+            prevPos[0] = parseFloat(pos.x);
+            prevPos[1] = parseFloat(pos.y);
+            // boundary checks
+            for (var i = 0; i < svg.children.length; ++i) {
+                var node = svg.children[i];
+                if (node.nodeName === "circle") {
+                    var x = parseFloat(node.getAttribute("cx")) - deltaX;
+                    var y = parseFloat(node.getAttribute("cy")) - deltaY;                    
+                    // -radius because we want to be stricter in terms of boundary touching
+                    if (!checkWithinCanvas(x, y, -radius)) {
+                        return // do not shift
+                    }
+                }
+            }
+            for (var i = 0; i < svg.children.length; ++i) {
+                var node = svg.children[i];
+                if (node.nodeName === "circle") {
+                    var currX = node.getAttribute("cx");
+                    var currY = node.getAttribute("cy");
+                    node.setAttribute("cx", parseFloat(currX) - deltaX);
+                    node.setAttribute("cy", parseFloat(currY) - deltaY);
+                } else if (node.nodeName === "line") {
+                    var currX1 = node.getAttribute("x1");
+                    var currY1 = node.getAttribute("y1");
+                    var currX2 = node.getAttribute("x2");
+                    var currY2 = node.getAttribute("y2");
+                    node.setAttribute("x1", parseFloat(currX1) - deltaX);
+                    node.setAttribute("y1", parseFloat(currY1) - deltaY);
+                    node.setAttribute("x2", parseFloat(currX2) - deltaX);
+                    node.setAttribute("y2", parseFloat(currY2) - deltaY);
+                }
+            }
+            return;
+        }
+    }
     for (var i = 0; i < edgeList.length; ++i) {
         var node1 = edgeList[i][0];
         var node2 = edgeList[i][1];
@@ -49,4 +95,5 @@ function drag(evt) {
 
 function endDrag(evt) {
     mousedElement = null;
+    prevPos = null;
 }

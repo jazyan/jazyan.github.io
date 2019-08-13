@@ -80,3 +80,20 @@ function toggleDirected() {
         }
     }
 }
+
+function createEdge(node) {
+    if (selectedObject === null) {
+        return;
+    } else if (selectedObject.nodeName === "circle" && selectedObject !== node) {
+        x1 = parseInt(selectedObject.getAttribute("cx"));
+        y1 = parseInt(selectedObject.getAttribute("cy"));
+        x2 = parseInt(node.getAttribute("cx"));
+        y2 = parseInt(node.getAttribute("cy"));
+        var line = drawEdge(x1, y1, x2, y2);
+        // add edge to edgeList 
+        edgeList.push([selectedObject, node, line]);
+        // deselect currently selected node
+        deselectNode(selectedObject);
+        selectedObject = null;
+    }
+}

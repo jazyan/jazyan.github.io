@@ -24,9 +24,8 @@ window.onload = function () {
             drawNode(e);
         }
     }
+    
     // single click selects / deselects node
-    // as well as creates edge
-    // TODO: delete edge
     canvas.onclick = function (e) {
         var index = checkBoundary(e, radius);
         if (index >= 0) {
@@ -39,25 +38,69 @@ window.onload = function () {
         }
     }
 
+    // drag start
     canvas.onmousedown = function (e) {
-        var index = checkBoundary(e, radius);
-        if (index >= 0) {
-            var node = svg.children[index];
-            startDrag(node);
-        }
+        startDrag(e);
     }
 
+    // drag
     canvas.onmousemove = function (e) {
         drag(e);
     }
 
+    // drag end
     canvas.onmouseup = function (e) {
         endDrag(e);
     }
 
+    // drag end
     canvas.onmouseleave = function (e) {
         endDrag(e);
     }
+
+    // right-click to create edge
+    canvas.oncontextmenu = function(e) {
+        e.preventDefault();
+        var index = checkBoundary(e, radius);
+        if (index >= 0) {
+            var node = svg.children[index];
+            if (node.nodeName === "circle") {
+                createEdge(node);
+            }
+        }
+    }
+    // TODO: shift click for text?
+    /*
+    canvas.addEventListener("click", function (e) {
+        if (e.shiftKey) {
+            console.log("SHIFTY");
+        }
+    });
+    */
+    /*
+    // TODO: zoom
+    canvas.addEventListener('wheel', function(e) {
+        if (e.shiftKey) {
+            var delta = Math.sign(e.deltaY);
+            // scroll up is -1
+            // scroll down is 1
+            console.log(delta);
+            var scale = svg.getAttribute("transform");
+            var zoom = 1;
+            if (scale !== null) {
+                zoom = parseFloat(scale.substring(6, scale.length - 1));
+                console.log(zoom);
+            }
+            if (delta === 1) {
+                zoom += 0.1;
+            } else {
+                zoom -= 0.1;
+            }
+            var scale = "scale(" + zoom + ")";
+            console.log(scale);
+            svg.setAttribute("transform", scale);
+        }
+    }, false);*/
 }
 
 // SVG to PNG logic below
@@ -94,6 +137,9 @@ btn.addEventListener('click', function () {
         DOMURL.revokeObjectURL(url);
         var imgURI = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
         triggerDownload(imgURI);
+        // clear the drawings we made on the canvas
+        // otherwise it will be overlaid by the SVG images
+        ctx.clearRect(XLOW, YLOW, XHIGH, YHIGH);
     };
     img.src = url;
 });

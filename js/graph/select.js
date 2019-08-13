@@ -24,6 +24,16 @@ function deselectObject(object) {
     }
 }
 
+function selectObject(object) {
+    if (object === null) {
+        return;
+    } else if (object.nodeName === "line") {
+        selectEdge(object);
+    } else if (object.nodeName === "circle") {
+        selectNode(object);
+    }
+}
+
 function clickEdge(edge) {
     if (selectedObject === null) {
         selectEdge(edge);
@@ -44,30 +54,14 @@ function clickEdge(edge) {
 }
 
 function clickNode(node) {
-    if (selectedObject === null) {
-        // if there's no currently selected node, the circle becomes the node
-        selectNode(node);
-        selectedObject = node;
-    } else if (selectedObject.nodeName === "line") {
-        deselectEdge(selectedObject);
-        selectNode(node);
-        selectedObject = node;
-    } else if (selectedObject === node) {
+    if (selectedObject === node) {
         // if the currently selected node is the circle, deselect it
         deselectNode(node);
         selectedObject = null;
     } else {
-        // there is a selected circle, and our current circle is another node
-        // that means we want to draw an edge! then deselect the node
-        x1 = parseInt(selectedObject.getAttribute("cx"));
-        y1 = parseInt(selectedObject.getAttribute("cy"));
-        x2 = parseInt(node.getAttribute("cx"));
-        y2 = parseInt(node.getAttribute("cy"));
-        var line = drawEdge(x1, y1, x2, y2);
-        // add edge to edgeList 
-        edgeList.push([selectedObject, node, line]);
-        // deselect currently selected node
-        deselectNode(selectedObject);
-        selectedObject = null;
+        // selected object is either null or not equal to current node
+        deselectObject(selectedObject);
+        selectNode(node);
+        selectedObject = node;
     }
 }
