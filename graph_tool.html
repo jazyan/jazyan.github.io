@@ -1,52 +1,50 @@
 <!DOCTYPE html5>
 <html>
-    <head>
-        <div style="position: relative">
-            <canvas id="canvas" width=810 height=810></canvas>
-            <svg id="svg" width=810 height=810 
-                style="position: absolute; 
-                       left: 0px;
-                       top: 0px;
-                       z-index: -1;">
-                <defs>
-                    <marker id="triangle-blue" viewBox="0 0 10 10"
-                            refX="8" refY="5"
-                            markerUnits="strokeWidth"
-                            markerWidth="3" markerHeight="3"
-                            orient="auto">
-                        <path d="M 0 0 L 10 5 L 0 10 z" fill="blue"/>
-                    </marker>
-                    <marker id="triangle-red" viewBox="0 0 10 10"
-                            refX="8" refY="5"
-                            markerUnits="strokeWidth"
-                            markerWidth="3" markerHeight="3"
-                            orient="auto">
-                        <path d="M 0 0 L 10 5 L 0 10 z" fill="red"/>
-                    </marker>
-                </defs>
-            </svg>
-        </div>
-        <!--https://stackoverflow.com/a/7018415-->
-        <div style="-webkit-user-select: none;        
-                    -moz-user-select: none;
-                    -ms-user-select: none;">
-            <p style="margin: 0; padding: 0;">
-                <b>current toggled color</b>
-            </p>
-            <ul>
-                <li><b>double-click</b> to create a node</li>
-                <li><b>click</b> to select or deselect a node or edge</li>
-                <li><b>click</b> a node, then <b>right-click</b> another to create an edge between them</li>
-                <li><b>hold click</b> on a node to drag it and its associated edges around </li>
-                <li><b>hold click</b> anywhere else in canvas to drag entire graph</li>
-                <li><b>shift</b> to color a selected edge blue or red</li>
-                <li><b>backspace</b> to delete selected node or edge</li>
-                <li><b>tab</b> to toggle color of subsequently created edges</li>
-                <li><b>ctrl</b> to toggle whether the edges are directed or undirected</li>
-            </ul>
-            <button>download as PNG</button>
-        </div>
-    </head>
+    <link rel="stylesheet" type="text/css" href="css/graph_style.css"/>
+    <body>
+        <head>
+            <div class="container">
+                <div class="divleft">
+                    <canvas id="canvas"></canvas>
+                    <svg id="svg">
+                        <defs>
+                            <marker id="triangle-blue" viewBox="0 0 10 10"
+                                    refX="8" refY="5"
+                                    markerUnits="strokeWidth"
+                                    markerWidth="3" markerHeight="3"
+                                    orient="auto">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="blue"/>
+                            </marker>
+                            <marker id="triangle-red" viewBox="0 0 10 10"
+                                    refX="8" refY="5"
+                                    markerUnits="strokeWidth"
+                                    markerWidth="3" markerHeight="3"
+                                    orient="auto">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="red"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="divright">
+                    <p>
+                        <b>current toggled edge color</b>
+                    </p>
+                    <ul>
+                        <li><b>double-click</b> to create a node</li>
+                        <li><b>click</b> to select or deselect a node or edge</li>
+                        <li><b>click</b> a node, then <b>right-click</b> another to create an edge between them</li>
+                        <li><b>hold click</b> on a node to drag it and its associated edges around </li>
+                        <li><b>hold click</b> anywhere else in canvas to drag entire graph</li>
+                        <li><b>shift</b> to color a selected edge blue or red</li>
+                        <li><b>backspace</b> to delete selected node or edge</li>
+                        <li><b>tab</b> to toggle color of subsequently created edges</li>
+                        <li><b>ctrl</b> to toggle whether the edges are directed or undirected</li>
+                    </ul>
+                    <button>download as PNG</button>
+                </div>
+            </div>
+        </head>
+    </body>
     <script src="js/graph/delete.js"></script>
     <script src="js/graph/drag.js"></script>
     <script src="js/graph/draw.js"></script>

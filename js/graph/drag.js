@@ -1,5 +1,5 @@
 var mousedElement = null;
-var prevPos = null;
+var prevPos = null;  // used for whole graph dragging
 
 function startDrag(evt) {
     var index = checkBoundary(evt, radius);
@@ -20,61 +20,54 @@ function updateEdge(x1, y1, x2, y2, edge) {
     edge.setAttribute("y2", bp2[1]);
 }
 
-// TODO: clean this up
-function drag(evt) {
-    evt.preventDefault();
-    var pos = getMousePos(canvas, evt);
-    if (!mousedElement) {
-        if (prevPos === null) {
-            return;
-        } else {
-            // update all the elements by delta
-            var deltaX = prevPos[0] - parseFloat(pos.x);
-            var deltaY = prevPos[1] - parseFloat(pos.y);
-            // update prevPos here to make dragging smooth
-            prevPos[0] = parseFloat(pos.x);
-            prevPos[1] = parseFloat(pos.y);
-            // boundary checks
-            for (var i = 0; i < svg.children.length; ++i) {
-                var node = svg.children[i];
-                if (node.nodeName === "circle") {
-                    var x = parseFloat(node.getAttribute("cx")) - deltaX;
-                    var y = parseFloat(node.getAttribute("cy")) - deltaY;                    
-                    // -radius because we want to be stricter in terms of boundary touching
-                    if (!checkWithinCanvas(x, y, -radius)) {
-                        return // do not shift
-                    }
-                }
+// return whether or not we want to shift graph
+function checkDragBoundary(deltaX, deltaY) {
+    for (var i = 0; i < svg.children.length; ++i) {
+        var node = svg.children[i];
+        if (node.nodeName === "circle") {
+            var x = parseFloat(node.getAttribute("cx")) - deltaX;
+            var y = parseFloat(node.getAttribute("cy")) - deltaY;
+            // -radius because we want to be stricter in terms of boundary touching
+            if (!checkWithinCanvas(x, y, -radius)) {
+                return false; // do not shift
             }
-            for (var i = 0; i < svg.children.length; ++i) {
-                var node = svg.children[i];
-                if (node.nodeName === "circle") {
-                    var currX = node.getAttribute("cx");
-                    var currY = node.getAttribute("cy");
-                    node.setAttribute("cx", parseFloat(currX) - deltaX);
-                    node.setAttribute("cy", parseFloat(currY) - deltaY);
-                } else if (node.nodeName === "line") {
-                    var currX1 = node.getAttribute("x1");
-                    var currY1 = node.getAttribute("y1");
-                    var currX2 = node.getAttribute("x2");
-                    var currY2 = node.getAttribute("y2");
-                    node.setAttribute("x1", parseFloat(currX1) - deltaX);
-                    node.setAttribute("y1", parseFloat(currY1) - deltaY);
-                    node.setAttribute("x2", parseFloat(currX2) - deltaX);
-                    node.setAttribute("y2", parseFloat(currY2) - deltaY);
-                }
-            }
-            return;
         }
     }
+    return true;
+}
+
+// shift all circles and lines by delta
+function shiftWholeGraph(deltaX, deltaY) {
+    for (var i = 0; i < svg.children.length; ++i) {
+        var node = svg.children[i];
+        if (node.nodeName === "circle") {
+            var currX = node.getAttribute("cx");
+            var currY = node.getAttribute("cy");
+            node.setAttribute("cx", parseFloat(currX) - deltaX);
+            node.setAttribute("cy", parseFloat(currY) - deltaY);
+        } else if (node.nodeName === "line") {
+            var currX1 = node.getAttribute("x1");
+            var currY1 = node.getAttribute("y1");
+            var currX2 = node.getAttribute("x2");
+            var currY2 = node.getAttribute("y2");
+            node.setAttribute("x1", parseFloat(currX1) - deltaX);
+            node.setAttribute("y1", parseFloat(currY1) - deltaY);
+            node.setAttribute("x2", parseFloat(currX2) - deltaX);
+            node.setAttribute("y2", parseFloat(currY2) - deltaY);
+        }
+    }
+}
+
+// shift mousedElement to pos, and update mousedElement's edges accordingly
+function shiftMousedElementAndEdges(posX, posY) {
     for (var i = 0; i < edgeList.length; ++i) {
         var node1 = edgeList[i][0];
         var node2 = edgeList[i][1];
         var edge = edgeList[i][2];
         if (mousedElement === node1){
             updateEdge(
-                parseInt(pos.x),
-                parseInt(pos.y),
+                parseInt(posX),
+                parseInt(posY),
                 parseInt(node2.getAttribute("cx")),
                 parseInt(node2.getAttribute("cy")),
                 edge
@@ -83,14 +76,34 @@ function drag(evt) {
             updateEdge(
                 parseInt(node1.getAttribute("cx")),
                 parseInt(node1.getAttribute("cy")),
-                parseInt(pos.x),
-                parseInt(pos.y),
+                parseInt(posX),
+                parseInt(posY),
                 edge
             );
         }
     }
-    mousedElement.setAttribute("cx", pos.x);
-    mousedElement.setAttribute("cy", pos.y);
+    mousedElement.setAttribute("cx", posX);
+    mousedElement.setAttribute("cy", posY);
+}
+
+function drag(evt) {
+    evt.preventDefault();
+    var pos = getMousePos(canvas, evt);
+    if (!mousedElement) {
+        if (prevPos !== null) {
+            // update all the elements by delta
+            var deltaX = prevPos[0] - parseFloat(pos.x);
+            var deltaY = prevPos[1] - parseFloat(pos.y);
+            // update prevPos here to make dragging smooth
+            prevPos[0] = parseFloat(pos.x);
+            prevPos[1] = parseFloat(pos.y);
+            if (checkDragBoundary(deltaX, deltaY)) {
+                shiftWholeGraph(deltaX, deltaY);
+            }
+        }
+    } else {
+        shiftMousedElementAndEdges(pos.x, pos.y);
+    }
 }
 
 function endDrag(evt) {

@@ -15,9 +15,9 @@ var directed = false;
 
 // canvas bounds
 var XLOW = 5;
-var XHIGH = 800;
+var XHIGH = 700;
 var YLOW = 5;
-var YHIGH = 800;
+var YHIGH = 700;
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");

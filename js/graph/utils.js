@@ -74,12 +74,9 @@ function checkLineBoundary(posX, posY, line) {
         2
     )
     if (x1 === x2 || y1 === y2) {
-        console.log(posX, x1, x2);
         if (inBoundary) {
-            console.log("FOUND VERT / HOR LINE");
             return true;
         } else {
-            console.log("NOPEP")
             return false;
         }
     }

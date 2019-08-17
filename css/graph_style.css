@@ -1,0 +1,47 @@
+body {
+    background-color: #CCEEFF;
+}
+
+/* https://stackoverflow.com/questions/22494931/float-div-on-right-then-drop-below-on-narrow-screen */
+.container {
+    position: relative;
+    width: 90%;
+    display: inline-block;
+}
+
+.container > .divleft {
+   width: 42%;
+   float: left; 
+}
+
+.container > .divright {
+    min-width: 800px;
+    width: 58%;
+    float: left;
+    /* https://stackoverflow.com/a/7018415 */
+    -webkit-user-select: none;        
+    -moz-user-select: none;
+    -ms-user-select: none;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+canvas {
+    width: 710px;
+    height: 710px;
+}
+
+svg {
+    width: 710px;
+    height: 710px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: -1;
+    background-color: white;
+}
+
+p {
+    margin: 0px;
+    padding: 0px;
+}
