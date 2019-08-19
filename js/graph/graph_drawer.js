@@ -32,6 +32,9 @@ window.onload = function () {
             } else {
                 clickNode(node);
             }
+        } else {
+            // clicking outside the graph deselects selected object
+            deselectObject(selectedObject);
         }
     }
 

@@ -10,13 +10,13 @@ body {
 }
 
 .container > .divleft {
-   width: 42%;
+   width: 48%;
    float: left; 
 }
 
 .container > .divright {
     min-width: 800px;
-    width: 58%;
+    width: 52%;
     float: left;
     /* https://stackoverflow.com/a/7018415 */
     -webkit-user-select: none;        
@@ -44,4 +44,8 @@ svg {
 p {
     margin: 0px;
     padding: 0px;
+}
+
+button {
+    background-color: lightsteelblue;
 }
