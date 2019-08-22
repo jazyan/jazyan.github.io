@@ -4,14 +4,14 @@ body {
 
 /* https://stackoverflow.com/questions/22494931/float-div-on-right-then-drop-below-on-narrow-screen */
 .container {
-    position: relative;
     width: 90%;
     display: inline-block;
 }
 
 .container > .divleft {
-   width: 48%;
-   float: left; 
+    width: 48%;
+    float: left; 
+    position: relative;
 }
 
 .container > .divright {
@@ -26,14 +26,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-canvas {
-    width: 710px;
-    height: 710px;
-}
-
 svg {
-    width: 710px;
-    height: 710px;
     position: absolute;
     left: 0px;
     top: 0px;
