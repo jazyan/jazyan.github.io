@@ -1,6 +1,8 @@
 html, body {
     height: 100%;
     font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 0;
 }
 
 body {
@@ -31,11 +33,13 @@ a:any-link {
 }
 
 .background {
-  position: absolute;
-  background-color: black;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: -1;                  /* moves to the background */
+    position: absolute;
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;                  /* moves to the background */
 }
