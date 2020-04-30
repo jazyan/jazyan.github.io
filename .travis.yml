@@ -7,6 +7,6 @@ addons:
 before_install:
   - npm install -g @lhci/cli@0.3.x # install LHCI
 script:
-  - echo "hello"
+  - lhci autorun --assert.preset=lighthouse:recommended # run Lighthouse CI on your static site and assert the recommended preset
 after_success:
   - lhci autorun --upload.target=temporary-public-storage # run lighthouse CI against your static site
