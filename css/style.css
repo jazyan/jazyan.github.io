@@ -3,7 +3,7 @@
  */
 
  html, body {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Courier New';
     margin: 0px;
     padding: 0px;
     background-color: #042A2B;
@@ -21,6 +21,7 @@ body {
 
 a:any-link {
     color: #D84727;
+    padding: 0px;
 }
 
 .container {
