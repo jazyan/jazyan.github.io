@@ -1,13 +1,8 @@
- html, body {
+ html {
     font-family: 'Courier New';
     margin: 0px;
     padding: 0px;
     background-color: #042A2B;
-}
-
-body {
-    display: flex;
-    align-items: center;
 }
 
 * {
@@ -21,8 +16,13 @@ a:any-link {
 }
 
 .container {
+    /* Center container on page. */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Container content formatting. */
     width: 80%;
-    margin: auto;
     padding: 20px;
     background-color: #CDEDF6;
     opacity: 0.7;
