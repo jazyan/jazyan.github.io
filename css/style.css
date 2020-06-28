@@ -1,7 +1,3 @@
-/* i like this color palette :)
-   #042A2B, #5EB1BF, #CDEDF6, #EF7B45, #D84727 
- */
-
  html, body {
     font-family: 'Courier New';
     margin: 0px;
@@ -20,7 +16,7 @@ body {
 }
 
 a:any-link {
-    color: #D84727;
+    color:  #042A2B;
     padding: 0px;
 }
 
