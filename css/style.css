@@ -12,17 +12,6 @@ body {
     color: #111111;
 }
 
-/* Animated background canvas, painted by js/background.js. */
-#bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-}
-
 h1,
 h3 {
     margin: 0;
@@ -39,12 +28,10 @@ a:any-link {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1;
     /* Container content formatting. */
     box-sizing: border-box;
     width: 80%;
     max-width: 60rem;
     padding: 20px;
-    /* Translucent background keeps the text fully opaque. */
-    background-color: rgba(255, 255, 255, 0.92);
+    background-color: #FFFFFF;
 }
