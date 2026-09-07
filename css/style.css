@@ -1,7 +1,7 @@
 html {
     margin: 0;
     padding: 0;
-    background-color: #042A2B;
+    background-color: #000000;
 }
 
 body {
@@ -9,7 +9,7 @@ body {
     padding: 0;
     min-height: 100vh;
     font-family: 'Courier New', Courier, monospace;
-    color: #042A2B;
+    color: #111111;
 }
 
 /* Animated background canvas, painted by js/background.js. */
@@ -30,7 +30,7 @@ h3 {
 }
 
 a:any-link {
-    color: #042A2B;
+    color: #C8102E;
 }
 
 .container {
@@ -46,5 +46,5 @@ a:any-link {
     max-width: 60rem;
     padding: 20px;
     /* Translucent background keeps the text fully opaque. */
-    background-color: rgba(205, 237, 246, 0.85);
+    background-color: rgba(255, 255, 255, 0.92);
 }

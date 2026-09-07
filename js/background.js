@@ -43,7 +43,7 @@
             r: radius,
             vx: Math.cos(angle) * speed,
             vy: Math.sin(angle) * speed,
-            alpha: 0.12 + Math.random() * 0.18
+            alpha: 0.18 + Math.random() * 0.22
         };
     }
 
@@ -69,8 +69,8 @@
             var orb = orbs[i];
             step(orb);
             var g = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, orb.r);
-            g.addColorStop(0, 'rgba(205, 237, 246, ' + orb.alpha + ')');
-            g.addColorStop(1, 'rgba(205, 237, 246, 0)');
+            g.addColorStop(0, 'rgba(200, 16, 46, ' + orb.alpha + ')');
+            g.addColorStop(1, 'rgba(200, 16, 46, 0)');
             ctx.fillStyle = g;
             ctx.beginPath();
             ctx.arc(orb.x, orb.y, orb.r, 0, Math.PI * 2);
