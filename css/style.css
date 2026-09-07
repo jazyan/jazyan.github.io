@@ -13,9 +13,15 @@ body {
 }
 
 h1,
-h3 {
+p {
     margin: 0;
     padding: 10px;
+}
+
+/* Match the weight and size the paragraphs had as h3 headings. */
+p {
+    font-size: 1.17em;
+    font-weight: bold;
 }
 
 a:any-link {
