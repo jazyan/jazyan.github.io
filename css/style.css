@@ -1,43 +1,87 @@
 html {
     margin: 0;
     padding: 0;
-    background-color: #000000;
+    background-color: #0b0b0b;
 }
 
 body {
     margin: 0;
-    padding: 0;
+    /* Center the card, but let the page scroll when the card is taller
+       than the viewport (e.g. on phones). */
     min-height: 100vh;
-    font-family: 'Courier New', Courier, monospace;
+    box-sizing: border-box;
+    padding: 24px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'SF Mono', Menlo, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    font-size: 1rem;
+    line-height: 1.6;
     color: #111111;
 }
 
-h1,
-p {
-    margin: 0;
-    padding: 10px;
+.container {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 42rem;
+    padding: 32px;
+    background-color: #FFFFFF;
+    border: 2px solid #111111;
+    /* Solid red offset shadow for a print-like look. */
+    box-shadow: 8px 8px 0 #C8102E;
 }
 
-/* Match the weight and size the paragraphs had as h3 headings. */
+h1 {
+    margin: 0 0 4px;
+    font-size: 1.8rem;
+    line-height: 1.2;
+}
+
+/* Tagline directly under the heading. */
+.tagline {
+    margin: 0 0 20px;
+    padding-bottom: 16px;
+    border-bottom: 3px solid #C8102E;
+    color: #444444;
+    font-style: italic;
+}
+
 p {
-    font-size: 1.17em;
-    font-weight: bold;
+    margin: 0 0 16px;
+}
+
+p:last-child {
+    margin-bottom: 0;
 }
 
 a:any-link {
     color: #C8102E;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
 }
 
-.container {
-    /* Center container on page. */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    /* Container content formatting. */
-    box-sizing: border-box;
-    width: 80%;
-    max-width: 60rem;
-    padding: 20px;
-    background-color: #FFFFFF;
+a:hover,
+a:focus {
+    color: #8E0B21;
+    text-decoration-thickness: 3px;
+}
+
+::selection {
+    background-color: #C8102E;
+    color: #FFFFFF;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 16px 12px;
+    }
+
+    .container {
+        padding: 20px;
+        box-shadow: 5px 5px 0 #C8102E;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
 }

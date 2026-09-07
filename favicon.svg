@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Jasmine: five white petals on a black disc with a red centre. -->
+  <circle cx="32" cy="32" r="32" fill="#0b0b0b"/>
+  <g fill="#ffffff" transform="translate(32 32)">
+    <ellipse rx="7" ry="15" cy="-14"/>
+    <ellipse rx="7" ry="15" cy="-14" transform="rotate(72)"/>
+    <ellipse rx="7" ry="15" cy="-14" transform="rotate(144)"/>
+    <ellipse rx="7" ry="15" cy="-14" transform="rotate(216)"/>
+    <ellipse rx="7" ry="15" cy="-14" transform="rotate(288)"/>
+  </g>
+  <circle cx="32" cy="32" r="5" fill="#C8102E"/>
+</svg>
